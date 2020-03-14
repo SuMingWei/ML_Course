@@ -48,22 +48,64 @@ def ml_loop():
         if not ball_served:
             comm.send_instruction(scene_info.frame, PlatformAction.SERVE_TO_LEFT)
             ball_served = True
+            bounce_to_left = False
+            bounce_to_right = False
+            distance = 0
         else:
             ball_x = scene_info.ball[0]
             ball_y = scene_info.ball[1]
             platform_x = scene_info.platform[0]
-            platform_y = scene_info.platform[1] 
-            if (platform_y - ball_y < 100):
-                if ball_x > platform_x:
-                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
-                elif ball_x < platform_y:
-                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
-                else:
-                    comm.send_instruction(scene_info.frame, PlatformAction.NONE)
-            else:
+            platform_y = scene_info.platform[1]            
+
+            if platform_y - ball_y > 285:
+                bounce_to_left = False
+                bounce_to_right = False
+                distance = 0                                              
+                # modify        
                 if platform_x < 75:
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
                 elif platform_x > 75:
+                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)                
+            elif platform_y - ball_y <= 285 and platform_y - ball_y > 200:
+                if ball_x == 0:
+                    bounce_to_left = True                    
+                    distance = platform_y - ball_y - 195                                   
+                    print(distance)       
+                elif ball_x == 195:
+                    bounce_to_right = True         
+                    distance = platform_y - ball_y - 195                                   
+                    print(distance)   
+            else:
+                if ball_x == 0:
+                    bounce_to_right = True                    
+                    distance = platform_y - ball_y + 5                                   
+                    print(distance)       
+                elif ball_x == 195:
+                    bounce_to_left = True         
+                    distance = platform_y - ball_y + 5                                   
+                    print(distance)       
+                                    
+            if bounce_to_right == True:                
+                if distance > platform_x + 35: # go right
+                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
+                elif distance < platform_x + 5: # go left
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
+                elif distance >= platform_x + 5 and distance <= platform_x + 35: # stop
+                    comm.send_instruction(scene_info.frame, PlatformAction.NONE)                    
+            elif bounce_to_left == True:
+                if 200 - distance > platform_x + 35: # go right
+                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
+                elif 200 - distance < platform_x + 5: # go left
+                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
+                elif 200 - distance >= platform_x + 5 and distance <= platform_x + 35: # stop
+                    comm.send_instruction(scene_info.frame, PlatformAction.NONE)
+            
+           
+
+                
+
+                
+
+            
 
             
