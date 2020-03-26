@@ -52,10 +52,10 @@ def ml_loop():
             bounce_to_right = False
             distance = 0
         else:
-            #ball_x = scene_info.ball[0]
-            #ball_y = scene_info.ball[1]
-            #platform_x = scene_info.platform[0]
-            #platform_y = scene_info.platform[1]            
+            ball_x = scene_info.ball[0]
+            ball_y = scene_info.ball[1]
+            platform_x = scene_info.platform[0]
+            platform_y = scene_info.platform[1]            
 
             if platform_y - ball_y > 285:
                 bounce_to_left = False
