@@ -172,7 +172,7 @@ class MLPlay:
                 grid.add(9)
             print(grid)       
 
-        if(nearest_dis <= 300): 
+        if(nearest_dis <= 280): 
             #front car very close
             if(nearest_dis <=200):
                 close = True
