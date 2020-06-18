@@ -115,7 +115,7 @@ class MLPlay:
                             left_front_near_dis = temp_dis
                             left_max_speed = car["velocity"]                
                 #right has car                
-                if (self.line > 0) and (lane == self.line + 1):
+                if (self.line < 8) and (lane == self.line + 1):
                 #if (self.line < 8) and (car["pos"][0] <= (self.line + 1)* 70 + 75) and (car["pos"][0] >= (self.line + 1)* 70 + 5):
                 #if (self.line < 8) and (car["pos"][0] == (self.line + 1)* 70 + 35):
                     #right side has car
